@@ -406,7 +406,7 @@ async function loadHarmonogram(sheetUrl4){
       let typ = cells[2].textContent.trim();
       let sport = cells[3].textContent.trim();
       let status = cells[4].textContent.trim();
-      let komentarz = cells[5].textContent.trim();
+      let komentarz = cells[5]?.textContent.trim();
 
       if(!harmonogram[data])
         harmonogram[data] = {
@@ -604,7 +604,7 @@ function generowanie_Naglowka(data){
         if (i === 0) zawody += `<td rowspan="${suby.length}">${dyscyplina}</td>`;
         zawody += `<td>${sub}</td>`;
         sortedDates.forEach(date =>{
-        const typ = data[dyscyplina]?.[sub][date]; // np. "O", "M", "Z"
+        const typ = data[dyscyplina]?.[sub]?.[date]; // np. "O", "M", "Z"
           if (typ) {
             let fCount = 0;
             if (Array.isArray(typ)) {
