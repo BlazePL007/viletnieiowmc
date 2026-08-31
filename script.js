@@ -55,7 +55,9 @@ const countryFlags = {
   "Argentyna":"https://flagcdn.com/ar.svg",
   "Brazylia":"https://flagcdn.com/br.svg",
   "Chile":"https://flagcdn.com/cl.svg",
-  "Reprezentacja Uchodźców": "https://upload.wikimedia.org/wikipedia/commons/a/a7/Olympic_flag.svg"
+  "Reprezentacja Uchodźców": "https://upload.wikimedia.org/wikipedia/commons/a/a7/Olympic_flag.svg",
+  "Arabia Saudyjska": "https://flagcdn.com/sa.svg",
+  "Palestyna":"https://flagcdn.com/ps.svg"
 };
 
 const kalendarzDef = [
