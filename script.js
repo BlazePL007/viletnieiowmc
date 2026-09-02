@@ -25,7 +25,7 @@ const countryFlags = {
   "Kosowo":"https://upload.wikimedia.org/wikipedia/commons/1/1f/Flag_of_Kosovo.svg",
   "Malta":"https://flagcdn.com/mt.svg",
   "Niemcy":"https://flagcdn.com/de.svg",
-  "Niderlandy": "https://flagcdn.com/nl.svg",
+  "Holandia": "https://flagcdn.com/nl.svg",
   "Norwegia":"https://flagcdn.com/no.svg",
   "Polska": "https://flagcdn.com/pl.svg",
   "Portugalia":"https://flagcdn.com/pt.svg",
