@@ -58,7 +58,9 @@ const countryFlags = {
   "Reprezentacja Uchodźców": "https://upload.wikimedia.org/wikipedia/commons/a/a7/Olympic_flag.svg",
   "Arabia Saudyjska": "https://flagcdn.com/sa.svg",
   "Palestyna":"https://flagcdn.com/ps.svg",
-  "Etiopia": "https://flagcdn.com/et.svg"
+  "Etiopia": "https://flagcdn.com/et.svg",
+  "Kirgistan":"https://flagcdn.com/kg.svg",
+  "Chińskie Tajpej":"https://upload.wikimedia.org/wikipedia/commons/b/b7/Flag_of_Chinese_Taipei_for_Olympic_Games.svg"
 };
 
 const kalendarzDef = [
@@ -88,11 +90,25 @@ const kalendarzDef = [
   { dyscyplina: "Futbol flagowy", sub: [] }
 ];
 
+let data = null;
+
+async function loads() {
+  let urls = [sheetUrl, sheetUrl2, sheetUrl3, sheetUrl4];
+  const parser = new DOMParser();
+  data = await Promise.all(
+    urls.map(url => fetch(url))
+  );
+  data = await Promise.all(
+    data.map(res => res.text())
+  );
+}
+
 async function preloadSheetData() {
   try {
-    const res = await fetch(sheetUrl);
-    const htmlText = await res.text();
+    // const res = await fetch(sheetUrl);
+    // const htmlText = await res.text();
 
+    const htmlText = data[0];
     const parser = new DOMParser();
     const doc = parser.parseFromString(htmlText, 'text/html');
 
@@ -149,10 +165,9 @@ async function preloadSheetData() {
   }
 }
 
-async function loadMedals(sheetUrl2) {
+async function loadMedals() {
   try{
-    const res = await fetch(sheetUrl2);
-    const htmlText = await res.text();
+    const htmlText = data[1]
 
     const parser = new DOMParser();
     const doc = parser.parseFromString(htmlText, 'text/html');
@@ -309,10 +324,9 @@ async function preloadSections(names) {
   }
 }
 
-async function loadRecords(sheetUrl3) {
+async function loadRecords() {
   try{
-    const res = await fetch(sheetUrl3);
-    const htmlText = await res.text();
+    const htmlText = data[2];
     
     const parser = new DOMParser();
     const doc = parser.parseFromString(htmlText, 'text/html');
@@ -390,8 +404,7 @@ function renderRecordTable(data, sectionName) {
 
 async function loadHarmonogram(sheetUrl4){
   try{
-    const res = await fetch(sheetUrl4);
-    const htmlText = await res.text();
+    const htmlText = data[3];
     
     const parser = new DOMParser();
     const doc = parser.parseFromString(htmlText, 'text/html');
@@ -455,8 +468,8 @@ async function loadHarmonogram(sheetUrl4){
       }
       }
     });
-    console.log("Kalendarz:")
-    console.log(kalendarz);
+    // console.log("Kalendarz:")
+    // console.log(kalendarz);
     renderHarmonogramlist(Object.values(harmonogram),"harmonogram");
     renderCalender(kalendarz, "harmonogram");
   }catch(error){
@@ -663,12 +676,13 @@ function generowanie_Naglowka(data){
 }
 
 async function init() {
-  await preloadSections(["wstęp", "dyscypliny", "panstwa", "symbole", "medale", "rekordy", "obiekty", "harmonogram", "zaprzyjaźnieni"]);
-  await preloadSheetData();
-  await loadMedals(sheetUrl2);
-  await loadRecords(sheetUrl3);
-  await loadHarmonogram(sheetUrl4);
-  await loadSection("wstęp")
+  preloadSections(["wstęp", "dyscypliny", "panstwa", "symbole", "medale", "rekordy", "obiekty", "harmonogram", "zaprzyjaźnieni"]);
+  await loads();
+  preloadSheetData();
+  loadMedals(sheetUrl2);
+  loadRecords(sheetUrl3);
+  loadHarmonogram(sheetUrl4);
+  loadSection("wstęp")
 }
 
 init();
